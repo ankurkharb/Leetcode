@@ -1,11 +1,12 @@
 class Solution {
 public:
     bool rotateString(string s, string goal) {
-        for(int i=0;i<s.size();i++)
+        int n = s.size();
+        for(int i=0;i<n;i++)
         {
-            if(s==goal)return true;
-            reverse(s.begin(),s.end());
-            reverse(s.begin(),s.end()-1);
+           reverse(s.begin(),s.end());
+           reverse(s.begin(),s.end()-1);
+           if(s==goal)return true;
         }
         return false;
     }
