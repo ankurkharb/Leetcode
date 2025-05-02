@@ -1,45 +1,52 @@
-class Solution {
-public:
-    bool ispossible(int mid,vector<int>& weights, int days)
+bool ispossible(vector<int>& weights, int days,int capacity)
+{
+    int n = weights.size();
+    int count=1;
+    int cap=capacity;
+    for(int i=0;i<n;i++)
     {
-        int n = weights.size();
-        int m=mid;
-        int count = 1;
-        for(int i=0;i<n;i++)
+        if(cap-weights[i]>=0)
         {
-            if(m>=weights[i])
-            {
-                m-=weights[i];
-            }
-            else
-            {
-                count++;
-                m=mid;
-                m-=weights[i];
-            }
+            cap-=weights[i];
+        }
+        else
+        {
+            count++;
+            cap=capacity;
+            cap-=weights[i];
+        }
+        
+    }
+    if(count<=days)
+        {
+            return true;
 
         }
-       if(count>days)return false;
-       else return true;
-    }
+        else
+        {
+            return false;
+        }
+}
+class Solution {
+public:
     int shipWithinDays(vector<int>& weights, int days) {
-        int sum=0;
-        int max = INT_MIN;
         int n = weights.size();
+        int sum;
+        int mx=-1;
+        int ans=-1;
         for(int i=0;i<n;i++)
         {
-            if(max<weights[i])max=weights[i];
+            mx=max(mx,weights[i]);
             sum+=weights[i];
         }
-        int low = max;
-        int high = sum;
-        int minCapacity= sum;
+        int low = mx;
+        int high= sum;
         while(low<=high)
         {
             int mid = low+(high-low)/2;
-            if(ispossible(mid,weights,days))
+            if(ispossible(weights,days,mid))
             {
-                minCapacity = mid;
+                ans=mid;
                 high=mid-1;
             }
             else
@@ -47,6 +54,6 @@ public:
                 low=mid+1;
             }
         }
-        return minCapacity;
+        return ans;
     }
 };
