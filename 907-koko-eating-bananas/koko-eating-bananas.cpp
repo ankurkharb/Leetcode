@@ -1,42 +1,48 @@
+bool ispossible(vector<int>& piles, int h,int speed)
+{
+    int n = piles.size();
+    long long count=0;
+
+    for(int i =0;i<n;i++)
+    {
+        if(speed>=piles[i])
+        {
+            count++;
+        }
+        else if(piles[i]%speed==0)
+        {
+            count+=(long long)piles[i]/speed;
+        }
+        else
+        {
+            count+=(long long)(piles[i]/speed)+1;
+        }
+    }
+    if(count>(long long)h)
+        return false;
+    else
+    {
+        return true;
+    }
+
+}
 class Solution {
 public:
-    bool ispossible(int speed,vector<int>& piles, int h)
-    {
-        long long count = 0;
-        int n = piles.size();
-        for(int i=0;i<n;i++)
-        {
-            if(speed>=piles[i])
-            {
-                count++;
-            }
-            else if(piles[i]%speed==0)
-            {
-                count+=(long long)piles[i]/speed;
-            }
-            else
-            {
-                count+=(long long)(piles[i]/speed)+1;
-            }
-        }
-        if(count>(long long)h) return false;
-        else return true;
-    }
     int minEatingSpeed(vector<int>& piles, int h) {
-        int n = piles.size();
         int low =1;
-        int high = -1;
-        int ans =0;
-        for(int i=0;i<n;i++)
+        int mx=0;
+        int ans=-1;
+        for(int i=0;i<piles.size();i++)
         {
-            high=max(high,piles[i]);
+            mx=max(mx,piles[i]);
         }
+        int high=mx;
         while(low<=high)
         {
-            int mid = low + (high-low)/2;
-            if(ispossible(mid,piles,h))
+            int mid=low+(high-low)/2;
+            if(ispossible(piles,h,mid))
             {
-                ans = mid;
+                ans=mid;
                 high=mid-1;
             }
             else
@@ -44,6 +50,6 @@ public:
                 low=mid+1;
             }
         }
-        return ans ;
+        return ans;
     }
 };
