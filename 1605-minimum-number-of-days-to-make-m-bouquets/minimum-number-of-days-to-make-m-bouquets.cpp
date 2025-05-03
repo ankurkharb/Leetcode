@@ -1,21 +1,21 @@
-bool ispossible(vector<int>& bloomDay, int bouquet, int flowers,long long mid)
+bool ispossible(vector<int>& bloomDay, int bouquet, int flowers,int mid)
 {
-    long long n = bloomDay.size();
-    long long bouNo = 0;
-     long long count=0;
-    for(long long i=0;i<n;i++)
+    int n = bloomDay.size();
+    int bouNo = 0;
+    int count=0;
+    for(int i=0;i<n;i++)
     {
         if(bloomDay[i]<=mid)
             count++;
     
         else
         {
-            bouNo+=count/(long long)(flowers);
+            bouNo+=count/flowers;
             count=0;
         }
     }
-    bouNo+=count/(long long)(flowers); // agr koi chota nai aya and array finish hogya to last wale elements
-    if(bouNo>=(long long)bouquet)
+    bouNo+=count/flowers; // agr koi chota nai aya and array finish hogya to last wale elements
+    if(bouNo>=bouquet)
     {
         return true;
     }
@@ -35,7 +35,7 @@ public:
         int ans=-1;
         while(low<=high)
         {
-            long long mid=low+(high-low)/2;
+            int mid=low+(high-low)/2;
             if(ispossible(bloomDay,m,k,mid))
             {
                 ans=mid;
