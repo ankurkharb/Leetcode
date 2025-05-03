@@ -28,7 +28,8 @@ class Solution {
 public:
     int minDays(vector<int>& bloomDay, int m, int k) {// m bouquet bnane h , k adjacent flowers
     long long n = bloomDay.size();
-    if((long long)m*(long long)k>n)return -1;
+    long long val = m *1LL *k *1LL;
+    if(val>n)return -1;
         int low =  *min_element(bloomDay.begin(),bloomDay.end());
         int high = *max_element(bloomDay.begin(),bloomDay.end());
         int ans=-1;
