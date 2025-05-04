@@ -4,25 +4,22 @@ public:
         int n = nums.size();
         vector<int> nega;
         vector<int> posi;
-        vector<int> ans;
-        for(int i=0;i<n;i++)
+        vector<int> neu;
+        for(int num:nums)
         {
-            if(nums[i]>0)
-            {
-                posi.push_back(nums[i]);
-
-            }
+            if(num<0)
+                nega.push_back(num);
             else
-            {
-                nega.push_back(nums[i]);
-            }
-
+                posi.push_back(num);
         }
-        for(int i=0;i<n/2;i++)
-        {
-            ans.push_back(posi[i]);
-            ans.push_back(nega[i]);
+        int i=0,j=0;
+        while(i<n/2 && j<n/2){
+            neu.push_back(posi[i]);
+            i++;
+            neu.push_back(nega[j]);
+            j++;
         }
-        return ans;
+        return neu;
+    
     }
 };
