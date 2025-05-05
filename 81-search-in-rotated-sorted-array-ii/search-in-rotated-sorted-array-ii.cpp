@@ -1,53 +1,57 @@
 class Solution {
 public:
-int findpivot(vector<int>& nums, int l,int r)
-{
-    while(l<r)
+    int findpivot(vector<int>& nums,int low,int high)
     {
-        while(l<r && nums[l]==nums[l+1])l++;
-        while(l<r && nums[r]==nums[r-1])r--;
+        while(low<high)
+        {
+            while(low<high && nums[low]==nums[low+1])low++; // what if mid is equal to low and high fir kaha move kroge
+            while(low<high && nums[high]==nums[high-1])high--;
 
-        int mid = l+(r-l)/2;
-        if(nums[mid]>nums[r])
-        {
-            l=mid+1;
+            int mid = low +(high-low)/2;
+            if(nums[mid]>nums[high])
+            {
+                low=mid+1;
+            }
+            else
+            {
+                high=mid ;// possibly my pivot
+            }
+
         }
-        else
-        {
-            r=mid; //possibily my pivot
-        }
-       
+        return high;
     }
-     return r;
-}
-    bool bs(vector<int>& nums, int l , int r, int & target)
+    bool bs(vector<int>& nums,int target,int low,int high)
     {
-        while(l<=r)
+        while(low<=high)
         {
-            int mid = l+(r-l)/2;
+            int mid = low+(high-low)/2;
             if(nums[mid]==target)
             {
                 return true;
             }
-            else if(nums[mid]<target)
+            else if (nums[mid]<target)
             {
-                l=mid+1;
+                low=mid+1;
             }
             else
             {
-                r=mid-1;
+                high=mid-1;
             }
         }
         return false;
     }
+
     bool search(vector<int>& nums, int target) {
-        int n =nums.size();
-        int pivot = findpivot(nums,0,n-1);
-        int result = bs(nums,0,pivot-1,target);
-        if(result !=false)
+        int n  = nums.size(); 
+        int low = 0;
+        int high = n-1 ;
+        int pivot = findpivot(nums,low,high);
+        int result = bs(nums,target,pivot,n-1);
+        if(result!=false)
         {
             return result;
         }
-        return bs(nums,pivot,n-1,target);
+        return bs(nums,target,0,pivot-1);
+        
     }
 };
