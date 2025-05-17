@@ -7,6 +7,7 @@ public:
     int n = arr.size();
     int low =0;
     int mid = 0;
+    
     int high =n-1;
     while(mid<=high){
         if(arr[mid]==0)
